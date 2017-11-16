@@ -6,6 +6,6 @@ namespace Database.Base.Interface.Infrastructure
 {
     public interface IDatabaseFactory
     {
-        IApplicationDb DataContext { get; }
+        IApplicationDB DataContext { get; }
     }
 }

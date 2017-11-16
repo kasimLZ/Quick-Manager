@@ -8,15 +8,15 @@ namespace Database.Base.Service.Infrastructure
     public class DatabaseFactory : IDatabaseFactory
     {
         // Fields
-        private IApplicationDb _dataContext;
+        private IApplicationDB _dataContext;
 
         // Methods
-        public DatabaseFactory(IApplicationDb applicationDb)
+        public DatabaseFactory(IApplicationDB applicationDb)
         {
             _dataContext = applicationDb;
         }
 
-        public IApplicationDb DataContext
+        public IApplicationDB DataContext
         {
             get { return _dataContext; }
           

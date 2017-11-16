@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Database;
+using Microsoft.EntityFrameworkCore;
 
 namespace Qucik_Manger
 {
@@ -21,6 +23,10 @@ namespace Qucik_Manger
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<ApplicationDB>(option => {
+                option.UseSqlServer("Data Source=localhost; Initial Catalog=DotNetCore; User ID=sa;Password=abc!123;Trusted_Connection=True",b => b.MigrationsAssembly("Database"));
+                
+            });
             services.AddMvc();
         }
 

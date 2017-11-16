@@ -6,7 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 
-namespace CoreConsoleTest.ReadJson
+namespace Common.Configuration
 {
     public static class ConfigurationManager
     {

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Database.Base.Interface.Infrastructure
 {
-    public interface IApplicationDb : IDisposable
+    public interface IApplicationDB : IDisposable
     {
         int Commit();
         Task<int> CommitAsync();

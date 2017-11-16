@@ -15,7 +15,7 @@ namespace Database.Base.Service.Infrastructure
     {
         // Fields
         private readonly IDatabaseFactory _databaseFactory;
-        private readonly IApplicationDb _dataContext;
+        private readonly IApplicationDB _dataContext;
         private readonly DbSet<T> _dbset;
         private readonly CurrentUserInterface _user;
 

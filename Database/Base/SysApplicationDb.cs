@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Database.Base
 {
-    public class SysApplicationDb : DbContext , IApplicationDb
+    public class SysApplicationDb : DbContext , IApplicationDB
     {
-        public SysApplicationDb(DbContextOptions option) : base(option)
+        public SysApplicationDb(DbContextOptions<ApplicationDB> option) : base(option)
         {
         }
 
@@ -37,12 +37,12 @@ namespace Database.Base
             return base.SaveChangesAsync();
         }
 
-        EntityEntry IApplicationDb.Entry(object entity)
+        EntityEntry IApplicationDB.Entry(object entity)
         {
             return base.Entry(entity);
         }
 
-        EntityEntry<TEntity> IApplicationDb.Entry<TEntity>(TEntity entity)
+        EntityEntry<TEntity> IApplicationDB.Entry<TEntity>(TEntity entity)
         {
             return base.Entry(entity);
         }

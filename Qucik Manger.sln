@@ -3,16 +3,16 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27004.2009
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Qucik Manger", "Qucik Manger\Qucik Manger.csproj", "{3BCAA029-D640-4984-BCE5-249536810C6F}"
-	ProjectSection(ProjectDependencies) = postProject
-		{5EF27214-0775-4574-8302-A5917069F453} = {5EF27214-0775-4574-8302-A5917069F453}
-		{DE0C9DF3-DDAD-4F4A-BEAB-4EA9425C6162} = {DE0C9DF3-DDAD-4F4A-BEAB-4EA9425C6162}
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{DE0C9DF3-DDAD-4F4A-BEAB-4EA9425C6162}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Database", "Database\Database.csproj", "{5EF27214-0775-4574-8302-A5917069F453}"
 	ProjectSection(ProjectDependencies) = postProject
+		{DE0C9DF3-DDAD-4F4A-BEAB-4EA9425C6162} = {DE0C9DF3-DDAD-4F4A-BEAB-4EA9425C6162}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "Web\Web.csproj", "{B81ED00F-6F25-40E8-BA28-EFB291833791}"
+	ProjectSection(ProjectDependencies) = postProject
+		{5EF27214-0775-4574-8302-A5917069F453} = {5EF27214-0775-4574-8302-A5917069F453}
 		{DE0C9DF3-DDAD-4F4A-BEAB-4EA9425C6162} = {DE0C9DF3-DDAD-4F4A-BEAB-4EA9425C6162}
 	EndProjectSection
 EndProject
@@ -22,10 +22,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{3BCAA029-D640-4984-BCE5-249536810C6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3BCAA029-D640-4984-BCE5-249536810C6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3BCAA029-D640-4984-BCE5-249536810C6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3BCAA029-D640-4984-BCE5-249536810C6F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DE0C9DF3-DDAD-4F4A-BEAB-4EA9425C6162}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DE0C9DF3-DDAD-4F4A-BEAB-4EA9425C6162}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DE0C9DF3-DDAD-4F4A-BEAB-4EA9425C6162}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -34,6 +30,10 @@ Global
 		{5EF27214-0775-4574-8302-A5917069F453}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5EF27214-0775-4574-8302-A5917069F453}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5EF27214-0775-4574-8302-A5917069F453}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B81ED00F-6F25-40E8-BA28-EFB291833791}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B81ED00F-6F25-40E8-BA28-EFB291833791}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B81ED00F-6F25-40E8-BA28-EFB291833791}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B81ED00F-6F25-40E8-BA28-EFB291833791}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,64 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <script src="~/jquery/jquery.js"></script>
+    <meta name="viewport" content="width=device-width" />
+    <title>test</title>
+</head>
+<body>
+    <script>
+        
+        $(function () {
+            var arr_id = [];
+            var arr_count = [];
+            var mm = [];
+            mm[0] = 0;
+            mm[1] = 0;
+
+
+            var test = function (i) {
+                arr_id[i] = setInterval(function () { run(i) }, 1);
+            }
+
+
+            var run = function (i)
+            {
+                arr_count[i]++;
+                $.post("/desktop/index/read", {}, function (content) {
+                    if (content == "小明") mm[0]++;
+                    else mm[1]++;
+                    if (mm[0] + mm[1] >= 100) $("body").append(mm + "<br/>")
+                })
+
+
+                if (arr_count[i] >= 10)
+                {
+                    
+                    clearInterval(arr_id[i]);
+                   
+
+                 }
+                
+            }
+
+
+            for (i = 0; i < 10; i++)
+            {
+                arr_count[i] = 0;
+                setTimeout(test(i),1500);
+
+             }
+
+
+           
+
+        })
+    </script>
+</body>
+</html>
