@@ -13,6 +13,10 @@ using Database.Base.Infrastructure;
 using Common.DataTool;
 using Common.Configuration;
 using Web.Helper;
+using Web.Security;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization.Infrastructure;
+using Microsoft.AspNetCore.Mvc.Authorization;
 
 namespace Web
 {
@@ -35,9 +39,13 @@ namespace Web
             services.AddTransient<CurrentUserInterface, CurrentUser>();
             services.AddServices<ApplicationDB>();//批量注入
 
+            services.RegisterIdentityServer();
+
             services.AddApplicationInsightsTelemetry(Configuration);
 
-            services.AddMvc();
+            services.AddMvc(option => {
+               option.Filters.Add(typeof(AuthorizeRoleFilter));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,6 +60,7 @@ namespace Web
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+            app.UseIdentityServer();
 
             app.UseMvc(route => {
                 route.RegisterAllArea();

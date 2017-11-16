@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Web.Models;
 using Database.Base.Interface;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Web.Controllers
 {
@@ -20,6 +21,7 @@ namespace Web.Controllers
             _sysController = isysController;
         }
 
+        [AllowAnonymous]
         public IActionResult Index()
         {
             //var userinfo = _CurrentUser.UserInfo;

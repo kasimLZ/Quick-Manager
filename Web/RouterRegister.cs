@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using System.IO;
 using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
+using Web.Helper;
 
 namespace Web
 {
@@ -49,10 +50,5 @@ namespace Web
         }
     }
 
-    public interface IAreaRegister
-    {
-        string AreaName { get; }
-
-        void RegisterArea(IRouteBuilder route);
-    }
+   
 }
