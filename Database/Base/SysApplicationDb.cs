@@ -2,6 +2,7 @@
 using Database.Base.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.EntityFrameworkCore.Design;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,12 +10,13 @@ using System.Threading.Tasks;
 
 namespace Database.Base
 {
-    public class SysApplicationDb : DbContext , IApplicationDB
+    public class SysApplicationDb<T> : DbContext, IApplicationDB
+        where T : DbContext
     {
         public SysApplicationDb(DbContextOptions<ApplicationDB> option) : base(option)
         {
         }
-
+        
         #region Base Database Register
         public DbSet<SysUserInfo> SysUserInfos { get; set; }
         public DbSet<SysArea> SysAreas { get; set; }
@@ -46,6 +48,6 @@ namespace Database.Base
         {
             return base.Entry(entity);
         }
-        
+       
     }
 }

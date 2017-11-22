@@ -20,8 +20,8 @@ namespace Web.Controllers
             _CurrentUser = iCurrentUser;
             _sysController = isysController;
         }
+        
 
-        [AllowAnonymous]
         public IActionResult Index()
         {
             //var userinfo = _CurrentUser.UserInfo;

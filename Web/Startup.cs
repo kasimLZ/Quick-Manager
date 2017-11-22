@@ -14,44 +14,45 @@ using Common.DataTool;
 using Common.Configuration;
 using Web.Helper;
 using Web.Security;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Authorization.Infrastructure;
-using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.EntityFrameworkCore.Design;
 
 namespace Web
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
-
         public IConfiguration Configuration { get; }
+        public IHostingEnvironment HostingEnvironment { get; }
 
+        public string connectionString { get { return Configuration.GetConnectionString(HostingEnvironment.IsDevelopment() ? "DevelopmentConnection" : "DefaultConnection"); } }
+
+        public Startup(IConfiguration configuration, IHostingEnvironment host)
+        {
+            //throw new Exception();
+            Configuration = configuration;
+            HostingEnvironment = host;
+        }
+        
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDB>(option =>
-            {
-                option.UseSqlServer("Data Source=localhost; Initial Catalog=DotNetCore; User ID=sa;Password=abc!123;Trusted_Connection=True");
-            });
+            services.AddDbContext<ApplicationDB>(option =>{option.UseSqlServer(connectionString); });
+
+
             services.AddTransient<CurrentUserInterface, CurrentUser>();
-            services.AddServices<ApplicationDB>();//批量注入
+            services.ServicesRegisterFactory<ApplicationDB>();//批量注入
 
             services.RegisterIdentityServer();
 
             services.AddApplicationInsightsTelemetry(Configuration);
 
-            services.AddMvc(option => {
-               option.Filters.Add(typeof(AuthorizeRoleFilter));
-            });
+            //Register a global custom identity filter
+            services.AddMvc(option =>{ option.Filters.Add(new AuthorizeRoleFilter()); });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app)
         {
-            if (env.IsDevelopment())
+            if (HostingEnvironment.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseBrowserLink();
@@ -71,5 +72,9 @@ namespace Web
 
             SFID.WorkerID = long.Parse(ConfigurationManager.AppSettings("MachineId"));
         }
+
+
     }
+
+   
 }

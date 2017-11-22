@@ -20,7 +20,7 @@ namespace Web.Areas.Account.Controllers
     [AllowAnonymous]
     public class LoginController : Controller
     {
-        private readonly TestUserStore _users;
+        private readonly IAuthRepository _users;
         private readonly IIdentityServerInteractionService _interaction;
         private readonly IEventService _events;
 
@@ -30,7 +30,7 @@ namespace Web.Areas.Account.Controllers
            IHttpContextAccessor httpContextAccessor,
            IAuthenticationSchemeProvider schemeProvider,
            IEventService events,
-           TestUserStore users = null)
+           IAuthRepository users)
         {
             // if the TestUserStore is not in DI, then we'll just use the global users collection
             _users = users;
@@ -54,10 +54,10 @@ namespace Web.Areas.Account.Controllers
 
             if (ModelState.IsValid)
             {
-                if (_users.ValidateCredentials(model.Username, model.Password))
+                if (_users.ValidatePassword(model.Username, model.Password))
                 {
-                    var user = _users.FindByUsername(model.Username);
-                    await _events.RaiseAsync(new UserLoginSuccessEvent(user.Username, user.SubjectId, user.Username));
+                    var user = _users.GetUserByUsername(model.Username);
+                    await _events.RaiseAsync(new UserLoginSuccessEvent(user.Login, user.Id.ToString(), user.UserName));
 
                     // only set explicit expiration here if user chooses "remember me". 
                     // otherwise we rely upon expiration configured in cookie middleware.
@@ -73,7 +73,7 @@ namespace Web.Areas.Account.Controllers
                     };
 
                     // issue authentication cookie with subject ID and username
-                    await HttpContext.SignInAsync(user.SubjectId, user.Username, props);
+                    await HttpContext.SignInAsync(user.Id.ToString(), user.UserName, props);
 
                     // make sure the returnUrl is still valid, and if so redirect back to authorize endpoint or a local page
                     if (_interaction.IsValidReturnUrl(model.ReturnUrl) || Url.IsLocalUrl(model.ReturnUrl))

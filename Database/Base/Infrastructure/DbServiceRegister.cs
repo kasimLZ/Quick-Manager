@@ -11,7 +11,7 @@ namespace Database.Base.Infrastructure
 {
     public static class DbServiceRegister
     {
-        public static void AddServices<TDbContext>(this IServiceCollection services)
+        public static void ServicesRegisterFactory<TDbContext>(this IServiceCollection services)
         {
             services.AddTransient<IDatabaseFactory, DatabaseFactory>();
             services.AddTransient(typeof(TDbContext).GetInterface("I" + typeof(TDbContext).Name), typeof(TDbContext));

@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using IdentityServer4.Services;
+using IdentityServer4.Validation;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,9 +16,13 @@ namespace Web.Security
             services.AddIdentityServer()
                 .AddSigningCredential(new X509Certificate2(@"Security\SecurityCertificate.pfx", "SecurityCertificate"))
                 .AddInMemoryIdentityResources(Configuration.IdentityResources)
-                .AddTestUsers(Configuration.Users)
+                //.AddTestUsers(Configuration.Users)
                 .AddInMemoryClients(Configuration.Clients)
-                 .AddInMemoryApiResources(Configuration.ApiResources());
+                .AddInMemoryApiResources(Configuration.ApiResources());
+
+            services.AddTransient<IResourceOwnerPasswordValidator, ResourceOwnerPasswordValidator>()
+                .AddTransient<IProfileService, ProfileService>()
+                .AddTransient<IAuthRepository, AuthRepository>();
         }
     }
 }
