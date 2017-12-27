@@ -13,12 +13,12 @@ namespace Database.Base.Infrastructure
     {
         public static void ServicesRegisterFactory<TDbContext>(this IServiceCollection services)
         {
-            services.AddTransient<IDatabaseFactory, DatabaseFactory>();
-            services.AddTransient(typeof(TDbContext).GetInterface("I" + typeof(TDbContext).Name), typeof(TDbContext));
+            services.AddScoped<IDatabaseFactory, DatabaseFactory>();
+            services.AddScoped(typeof(TDbContext).GetInterface("I" + typeof(TDbContext).Name), typeof(TDbContext));
             Assembly.GetAssembly(typeof(TDbContext)).GetTypes().Where(a => a.Name.EndsWith("Service")).ToList().ForEach(Service => {
                 Service.GetInterfaces().Where(a => a.Name.EndsWith("Interface")).ToList().ForEach(Intface =>
                 {
-                    services.AddTransient(Intface, Service); 
+                    services.AddScoped(Intface, Service); 
                 });
             });
         }

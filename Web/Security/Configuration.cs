@@ -29,7 +29,7 @@ namespace Web.Security
         {
             return new[]
             {
-                new ApiResource("ApiSecret", "api")
+                new ApiResource("AuthApi", "api")
             };
         }
 
